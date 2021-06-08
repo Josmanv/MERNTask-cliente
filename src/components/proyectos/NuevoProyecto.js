@@ -8,7 +8,7 @@ const NuevoProyecto = () => {
         lo largo de varios componentes*/
 
     const proyectosContext = useContext(proyectoContext);
-    const {formulario} = proyectosContext;
+    const {formulario, mostrarFormulario} = proyectosContext;
  
     const [proyecto, setProyecto] = useState({
         nombre:''
@@ -34,11 +34,17 @@ const NuevoProyecto = () => {
         // Reiniciar el form
     }
 
+    const onClikFormulario = () =>{
+        // beneficios de crear esta función para el onclik es que podemos añadir mas funciones a la hora de hacer click
+        mostrarFormulario();
+    }
+
     return ( 
         <Fragment>
         <button
             type="button"
             className="btn btn-block btn-primario"
+            onClick={mostrarFormulario}
         >
         Nuevo Proyecto
         </button>
@@ -48,7 +54,7 @@ const NuevoProyecto = () => {
                 (
                     <form
                         className="formulario-nuevo-proyecto"
-                        onSubmit={onSubmitProyecto}
+                        onSubmit={onClikFormulario}
                     >
                         <input 
                             type="text"
