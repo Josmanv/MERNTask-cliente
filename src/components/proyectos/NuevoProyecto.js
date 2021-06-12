@@ -8,7 +8,7 @@ const NuevoProyecto = () => {
         lo largo de varios componentes*/
 
     const proyectosContext = useContext(proyectoContext);
-    const {formulario, mostrarFormulario} = proyectosContext;
+    const {formulario, mostrarFormulario, agregarProyecto} = proyectosContext;
  
     const [proyecto, setProyecto] = useState({
         nombre:''
@@ -26,12 +26,20 @@ const NuevoProyecto = () => {
 
     const onSubmitProyecto = e => {
         e.preventDefault();
+        console.log(e)
 
         // Validar el proyecto
+        if(nombre === ""){
+            return
+        }
 
         // Agregar al state
+        agregarProyecto(proyecto);
 
         // Reiniciar el form
+        setProyecto({
+            nombre:''
+        });
     }
 
     const onClikFormulario = () =>{
@@ -54,7 +62,7 @@ const NuevoProyecto = () => {
                 (
                     <form
                         className="formulario-nuevo-proyecto"
-                        onSubmit={onClikFormulario}
+                        onSubmit={onSubmitProyecto}
                     >
                         <input 
                             type="text"
