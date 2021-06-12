@@ -8,7 +8,13 @@ const NuevoProyecto = () => {
         lo largo de varios componentes*/
 
     const proyectosContext = useContext(proyectoContext);
-    const {formulario, mostrarFormulario, agregarProyecto} = proyectosContext;
+    const {
+        formulario, 
+        errorFormulario,
+        mostrarFormulario, 
+        agregarProyecto, 
+        mostrarError
+    } = proyectosContext;
  
     const [proyecto, setProyecto] = useState({
         nombre:''
@@ -30,6 +36,7 @@ const NuevoProyecto = () => {
 
         // Validar el proyecto
         if(nombre === ""){
+            mostrarError();
             return
         }
 
@@ -84,6 +91,7 @@ const NuevoProyecto = () => {
                 : null
 
         }
+        {errorFormulario ? <p className="mensaje error"> El nombre del proyecto es obligatorio</p> : null}
 
         </Fragment>
      );
