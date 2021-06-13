@@ -1,6 +1,10 @@
 import React, {useContext, useReducer} from 'react';
-import TareaContext from './tareaContext';
+import tareaContext from './tareaContext';
 import TareaReducer from './tareaReducer';
+
+import {
+    TAREAS_PROYECTO
+} from '../../types';
 
 const TareaState = props =>{
 
@@ -23,19 +27,32 @@ const TareaState = props =>{
 
             {nombre:'Elegir plataforma', estado:true, proyectoId: 3}
 
-        ]
+        ],
+        tareasproyecto : null
     }
 
     // Crear el dispatch y el estate
     const [state, disptacth] = useReducer(TareaReducer, initialState);
 
+    // Crear funciones para el dispatch
+
+    // Obtener las tareas de un proyecto
+    const obtenerTareas = proyectoId => {
+        disptacth({
+            type: TAREAS_PROYECTO,
+            payload: proyectoId
+        });
+    }
+
     return(
-        <TareaContext.Provider
+        <tareaContext.Provider
             value={{
-               tareas: state.tareas
+               tareas: state.tareas,
+               tareasproyecto: state.tareasproyecto,
+               obtenerTareas
             }}> 
             {props.children}
-        </TareaContext.Provider>
+        </tareaContext.Provider>
     );
  
 
