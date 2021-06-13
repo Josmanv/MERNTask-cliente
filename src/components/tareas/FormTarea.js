@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import proyectoContext from '../../context/proyectos/proyectoContext';
 import tareaContext from '../../context/tareas/tareaContext';
 
@@ -10,7 +10,26 @@ const FormTarea = () => {
 
     // Extraer agregrarTarea
     const tareasContext = useContext(tareaContext);
-    const {errortarea, agregarTarea, validarTarea, obtenerTareas} = tareasContext;
+    const {
+        errortarea, 
+        tareaseleccionada, 
+        agregarTarea, 
+        validarTarea, 
+        obtenerTareas, 
+        editarTarea,
+        limpiarTarea
+    } = tareasContext;
+
+    // Effect que detecta si hay un atarea seleccionada
+    useEffect(()=>{
+        if(tareaseleccionada !== null){
+            setTarea(tareaseleccionada);
+        }else{
+            setTarea({
+                nombre: ''
+            });
+        }
+    },[tareaseleccionada]);
 
     const [tarea, setTarea] = useState({
         nombre: ''
@@ -41,12 +60,22 @@ const FormTarea = () => {
             return;
         }
 
+        // Reviar si es edición  nueva tarea
+        if(tareaseleccionada === null){
+            // Significa que es una tarea nueva
+            // Añadir una neuva tarea al state de tareas
+            tarea.proyectoId = proyectoActual.id;
+            tarea.estado = false;
+            agregarTarea(tarea);
+        }else{
+            editarTarea(tarea);
+            //Elimina tareaseleccionada del state
+            limpiarTarea();
+        }
+
         // Pasar la validación
 
-        // Añadir una neuva tarea al state de tareas
-        tarea.proyectoId = proyectoActual.id;
-        tarea.estado = false;
-        agregarTarea(tarea);
+       
 
         // Obtener todas las tareas del proyecto
         obtenerTareas(tarea.proyectoId);
@@ -78,7 +107,7 @@ const FormTarea = () => {
                     <input 
                         type="submit"
                         className="btn btn-block btn-primario btn-submit"
-                        value="Añadir Tarea"
+                        value={ tareaseleccionada ? "Editar tarea" : "Añadir Tarea" }
                     />
                 </div>
             </form>

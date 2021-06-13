@@ -1,13 +1,17 @@
 import React, {useReducer} from 'react';
 import tareaContext from './tareaContext';
 import TareaReducer from './tareaReducer';
+import {v4 as uuidv4} from 'uuid';
 
 import {
     TAREAS_PROYECTO,
     AGREGRAR_TAREA,
     VALIDAR_TAREA,
     ELIMINAR_TAREA,
-    ESTADO_TAREA
+    ESTADO_TAREA,
+    TAREA_ACTUAL,
+    ACTUALILZAR_TAREA,
+    LIMPIAR_TAREA
 } from '../../types';
 
 const TareaState = props =>{
@@ -30,7 +34,8 @@ const TareaState = props =>{
 
         ],
         tareasproyecto : null,
-        errortarea : false
+        errortarea : false,
+        tareaseleccionada : null
     }
 
     // Crear el dispatch y el estate
@@ -47,6 +52,7 @@ const TareaState = props =>{
     }
 
     const agregarTarea = tarea =>{
+        tarea.id=uuidv4();
         disptacth({
             type: AGREGRAR_TAREA,
             payload: tarea
@@ -76,17 +82,44 @@ const TareaState = props =>{
         });
     }
 
+    // Extrae una tarea para editarla
+    const guardarTareaActual = tarea => {
+        disptacth({
+            type: TAREA_ACTUAL,
+            payload: tarea
+        });
+    }
+
+    // Edita o modifica una tarea
+    const editarTarea = tarea => {
+        disptacth({
+            type: ACTUALILZAR_TAREA,
+            payload: tarea
+        });
+    }
+
+    // Elimina la tarea seleccionada
+    const limpiarTarea = () => {
+        disptacth({
+            type: LIMPIAR_TAREA
+        });
+    }
+
     return(
         <tareaContext.Provider
             value={{
                tareas: state.tareas,
                tareasproyecto: state.tareasproyecto,
                errortarea: state.errortarea,
+               tareaseleccionada: state.tareaseleccionada,
                obtenerTareas,
                agregarTarea,
                validarTarea,
                eliminarTarea,
-               cambiarEstadoTarea
+               cambiarEstadoTarea,
+               guardarTareaActual,
+               editarTarea,
+               limpiarTarea
             }}> 
             {props.children}
         </tareaContext.Provider>
