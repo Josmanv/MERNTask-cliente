@@ -3,7 +3,9 @@ import tareaContext from './tareaContext';
 import TareaReducer from './tareaReducer';
 
 import {
-    TAREAS_PROYECTO
+    TAREAS_PROYECTO,
+    AGREGRAR_TAREA,
+    VALIDAR_TAREA
 } from '../../types';
 
 const TareaState = props =>{
@@ -28,7 +30,8 @@ const TareaState = props =>{
             {nombre:'Elegir plataforma', estado:true, proyectoId: 3}
 
         ],
-        tareasproyecto : null
+        tareasproyecto : null,
+        errortarea : false
     }
 
     // Crear el dispatch y el estate
@@ -44,12 +47,29 @@ const TareaState = props =>{
         });
     }
 
+    const agregarTarea = tarea =>{
+        disptacth({
+            type: AGREGRAR_TAREA,
+            payload: tarea
+        });
+    }
+
+    // Valida y muestra un error en caso de que sea necesario
+    const validarTarea = () =>{
+        disptacth({
+            type: VALIDAR_TAREA
+        });
+    }
+
     return(
         <tareaContext.Provider
             value={{
                tareas: state.tareas,
                tareasproyecto: state.tareasproyecto,
-               obtenerTareas
+               errortarea: state.errortarea,
+               obtenerTareas,
+               agregarTarea,
+               validarTarea
             }}> 
             {props.children}
         </tareaContext.Provider>
