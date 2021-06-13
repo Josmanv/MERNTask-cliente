@@ -6,7 +6,8 @@ import {
     TAREAS_PROYECTO,
     AGREGRAR_TAREA,
     VALIDAR_TAREA,
-    ELIMINAR_TAREA
+    ELIMINAR_TAREA,
+    ESTADO_TAREA
 } from '../../types';
 
 const TareaState = props =>{
@@ -67,6 +68,14 @@ const TareaState = props =>{
         });
     }
 
+    // Cambia el estado de la tarea
+    const cambiarEstadoTarea = tarea => {
+        disptacth({
+            type: ESTADO_TAREA,
+            payload: tarea
+        });
+    }
+
     return(
         <tareaContext.Provider
             value={{
@@ -76,7 +85,8 @@ const TareaState = props =>{
                obtenerTareas,
                agregarTarea,
                validarTarea,
-               eliminarTarea
+               eliminarTarea,
+               cambiarEstadoTarea
             }}> 
             {props.children}
         </tareaContext.Provider>
