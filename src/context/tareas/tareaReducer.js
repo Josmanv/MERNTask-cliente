@@ -5,7 +5,7 @@ import {
     ELIMINAR_TAREA
 } from '../../types';
 
-export default (state, action) =>{
+const tareaReducer = (state, action) => {
     switch(action.type){
         case TAREAS_PROYECTO:
             return {
@@ -32,3 +32,5 @@ export default (state, action) =>{
             return state;
     }
 }
+
+export default tareaReducer;

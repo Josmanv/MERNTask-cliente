@@ -1,4 +1,4 @@
-import React, {useContext, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import tareaContext from './tareaContext';
 import TareaReducer from './tareaReducer';
 
