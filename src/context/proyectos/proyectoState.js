@@ -41,11 +41,18 @@ const ProyectoState = props => {
     }
 
     //Obtener los proyectos
-    const obtenerProyectos = () => {
+    const obtenerProyectos = async () => {
+       try {
+
+        const resultado = await clienteAxios.get('/api/proyectos');
+        // console.log(resultado.data.proyectos);
         dispatch({
             type: OBTENER_PROYECTOS,
-            payload: proyectos
+            payload: resultado.data.proyectos
         })
+       } catch (error) {
+        console.log(error);
+       }
     }
 
     // Añadir nuevo proyecto
@@ -53,7 +60,7 @@ const ProyectoState = props => {
 
      try {
          const resultado = await clienteAxios.post('/api/proyectos', proyecto);
-         console.log(resultado);
+        //  console.log(resultado);
         //Insertar el proyecto en el state
         dispatch({
             type: AGREGRAR_PROYECTO,
