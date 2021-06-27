@@ -88,7 +88,7 @@ const onSubmit = e => {
                 onSubmit={onSubmit}
             >
                 <div className="campo-form">
-                    <label htmlFor="nombre">Email</label>
+                    <label htmlFor="nombre">Nombre</label>
                     <input 
                         type="text"
                         name="nombre"
