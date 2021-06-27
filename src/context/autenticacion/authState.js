@@ -53,7 +53,7 @@ const AuthState = props => {
         }
     }
 
-    // retorna el usuario auntenticado
+    // retorna el usuario autenticado
     const usuarioAutenticado = async () => {
         const token = localStorage.getItem('token');
         if(token){
