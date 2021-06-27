@@ -53,7 +53,7 @@ const AuthState = props => {
         }
     }
 
-    // retrona el usuario auntenticado
+    // retorna el usuario auntenticado
     const usuarioAutenticado = async () => {
         const token = localStorage.getItem('token');
         if(token){
@@ -102,6 +102,14 @@ const AuthState = props => {
         }
      }
 
+     // Cerrar la sesión del usuario
+     
+     const cerrarSesion = async datos => {
+        dispatch({
+            type: CERRAR_SESION
+        });
+    }
+
     return(
         <authContext.Provider
             value={{
@@ -111,7 +119,8 @@ const AuthState = props => {
               mensaje: state.mensaje,
               registrarUsuario,
               iniciarSesion,
-              usuarioAutenticado
+              usuarioAutenticado,
+              cerrarSesion
             }}> 
             {props.children}
         </authContext.Provider>
