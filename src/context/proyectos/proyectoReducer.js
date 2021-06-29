@@ -4,7 +4,8 @@ import {
     AGREGRAR_PROYECTO,
     VALIDAR_FORMULARIO,
     PROYECTO_ACTUAL,
-    ELIMINAR_PROYECTO
+    ELIMINAR_PROYECTO,
+    PROYECTO_ERROR
 } from '../../types';
 
 const proyectoReducer = (state, action) =>{
@@ -42,6 +43,11 @@ const proyectoReducer = (state, action) =>{
             proyectos: state.proyectos.filter(proyecto => proyecto._id !== action.payload),
             proyecto: null
         };
+        case PROYECTO_ERROR:
+            return {
+                ...state,
+                mensaje: action.payload
+            };
         default:
             return state;
     }

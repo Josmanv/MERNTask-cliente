@@ -7,7 +7,8 @@ import {
     AGREGRAR_PROYECTO,
     VALIDAR_FORMULARIO,
     PROYECTO_ACTUAL,
-    ELIMINAR_PROYECTO
+    ELIMINAR_PROYECTO,
+    PROYECTO_ERROR
 } from '../../types';
 import clienteAxios from '../../config/axios';
 
@@ -26,7 +27,8 @@ const ProyectoState = props => {
         proyectos : [],
         formulario : false,
         errorFormulario : false,
-        proyecto : null
+        proyecto : null,
+        mensaje: null
     }
 
     //dispatch para ejecutar las acciones
@@ -51,7 +53,14 @@ const ProyectoState = props => {
             payload: resultado.data.proyectos
         })
        } catch (error) {
-        console.log(error);
+        const alerta = {
+            msg: "Hay un error",
+            categoria: "alerta-error"
+        }
+        dispatch({
+            type: PROYECTO_ERROR,
+            payload: alerta
+        });
        }
     }
 
@@ -67,7 +76,14 @@ const ProyectoState = props => {
             payload: resultado.data
         });
      } catch (error) {
-         console.log(error);
+        const alerta = {
+            msg: "Hay un error",
+            categoria: "alerta-error"
+        }
+        dispatch({
+            type: PROYECTO_ERROR,
+            payload: alerta
+        });
      }
 
     }
@@ -89,14 +105,22 @@ const ProyectoState = props => {
 
     // Elimina un proyecto
     const eliminarProyecto = async proyectoId => {
-        await clienteAxios.delete(`/api/proyectos/${proyectoId}`);
+        
         try {
+            await clienteAxios.delete(`/api/proyectos/${proyectoId}`);
             dispatch({
                 type: ELIMINAR_PROYECTO,
                 payload: proyectoId
             });
         } catch (error) {
-            console.log(error);
+            const alerta = {
+                msg: "Hay un error",
+                categoria: "alerta-error"
+            }
+            dispatch({
+                type: PROYECTO_ERROR,
+                payload: alerta
+            });
         }
     }
 
@@ -108,6 +132,7 @@ const ProyectoState = props => {
                 formulario : state.formulario,
                 errorFormulario : state.errorFormulario,
                 proyecto: state.proyecto,
+                mensaje: state.mensaje,
                 mostrarFormulario,
                 obtenerProyectos,
                 agregarProyecto,
