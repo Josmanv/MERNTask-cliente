@@ -32,11 +32,10 @@ const tareaReducer = (state, action) => {
             ...state,
             tareasproyecto: state.tareasproyecto.filter(tarea => tarea._id !== action.payload)
         }
-        case ESTADO_TAREA:
         case ACTUALILZAR_TAREA:
             return {
                 ...state,
-                tareasproyecto: state.tareasproyecto.map(tarea => tarea.id === action.payload.id ? action.payload : tarea)
+                tareasproyecto: state.tareasproyecto.map(tarea => tarea._id === action.payload._id ? action.payload : tarea)
             }
         case TAREA_ACTUAL:
             return {

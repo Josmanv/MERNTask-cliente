@@ -12,7 +12,7 @@ const Tarea = ({tarea}) => {
     const [proyectoActual] = proyecto;
 
     const tareasContext = useContext(tareaContext);
-    const {eliminarTarea, obtenerTareas, cambiarEstadoTarea, guardarTareaActual} = tareasContext;
+    const {eliminarTarea, obtenerTareas, actualizarTarea, guardarTareaActual} = tareasContext;
 
     // Función que se ejecuta cuando el usaurio presiona el botón de eliminar tarea
     const tareaEliminar = id => {
@@ -27,7 +27,7 @@ const Tarea = ({tarea}) => {
        }else{
         tarea.estado = true;
        }
-       cambiarEstadoTarea(tarea);
+       actualizarTarea(tarea);
     }
 
     // función para seleccionar la tarea a editar

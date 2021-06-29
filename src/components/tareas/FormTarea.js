@@ -16,7 +16,7 @@ const FormTarea = () => {
         agregarTarea, 
         validarTarea, 
         obtenerTareas, 
-        editarTarea,
+        actualizarTarea,
         limpiarTarea
     } = tareasContext;
 
@@ -67,7 +67,7 @@ const FormTarea = () => {
             tarea.proyecto = proyectoActual._id;
             agregarTarea(tarea);
         }else{
-            editarTarea(tarea);
+            actualizarTarea(tarea);
             //Elimina tareaseleccionada del state
             limpiarTarea();
         }
