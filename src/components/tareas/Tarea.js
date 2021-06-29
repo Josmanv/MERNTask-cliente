@@ -14,9 +14,9 @@ const Tarea = ({tarea}) => {
     const tareasContext = useContext(tareaContext);
     const {eliminarTarea, obtenerTareas, cambiarEstadoTarea, guardarTareaActual} = tareasContext;
 
-    // Función que se ejecuta cuando el usaurio presiona el borón de eliminar tarea
+    // Función que se ejecuta cuando el usaurio presiona el botón de eliminar tarea
     const tareaEliminar = id => {
-        eliminarTarea(id);
+        eliminarTarea(id, proyectoActual._id);
         obtenerTareas(proyectoActual.id);
     } 
 
@@ -72,7 +72,7 @@ const Tarea = ({tarea}) => {
                 <button
                     type="button"
                     className="btn btn-secundario"
-                    onClick={()=>tareaEliminar(tarea.id)}
+                    onClick={()=>tareaEliminar(tarea._id)}
                 >
                 Eliminar
                 </button>
